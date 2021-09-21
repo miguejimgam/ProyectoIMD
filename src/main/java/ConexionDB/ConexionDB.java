@@ -16,6 +16,8 @@ import javax.sql.DataSource;
  *
  * @author Miguel
  */
+
+//ESTO ESTA OBSOLETO, HAY QUE CAMBIARLO A LAS UNIDADES DE PERSISTENCIA
 public class ConexionDB {
 
     public static Connection getConnection() throws NamingException, SQLException {
