@@ -5,7 +5,7 @@
  */
 package com.arelance.proyectoimd.services.usuarioservices;
 
-import Beans.Usuario;
+import com.arelance.proyectoimd.domain.Usuario;
 import javax.ejb.Local;
 
 /**
@@ -15,4 +15,5 @@ import javax.ejb.Local;
 @Local
 public interface UsuarioService {
     public Usuario login(Usuario usuario);
+    public void registerUsuario(Usuario usuario);
 }

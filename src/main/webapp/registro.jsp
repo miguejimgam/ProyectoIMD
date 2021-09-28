@@ -1,6 +1,6 @@
 <%-- 
-    Document   : login
-    Created on : 10-sep-2021, 12:41:12
+    Document   : registro
+    Created on : 28-sep-2021, 10:09:28
     Author     : Miguel
 --%>
 
@@ -11,10 +11,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+        <title>Registro</title>
     </head>
     <body>
-        <form method="GET" action="./PreLoginServlet">
+        <form method="GET" action="./PreRegistroServlet">
             <label for="usuario">Usuario</label>
             <input type="text" name="usuario" id="usuario">
             <label for="password">Contraseña</label>
@@ -23,7 +23,6 @@
             <input type="submit" value="Enviar">
         </form>
         <a href="index.jsp"><button>Volver</button></a>
-        <c:out value="${badLogin != null?'El usuario no existe':''}" />
-        <c:out value="${registrado != null?'Usuario registrado con exito':''}" />
-    </body>
+    <c:out value="${badRegister != null?'Este usuario ya esta en uso':''}" />
+</body>
 </html>

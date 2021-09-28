@@ -5,7 +5,7 @@
  */
 package com.arelance.proyectoimd.services.usuarioservices.impl;
 
-import Beans.Usuario;
+import com.arelance.proyectoimd.domain.Usuario;
 import com.arelance.proyectoimd.dao.usuario.UsuarioDAO;
 import com.arelance.proyectoimd.services.usuarioservices.UsuarioService;
 import javax.inject.Inject;
@@ -22,6 +22,11 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Override
     public Usuario login(Usuario usuario) {
         return usuarioDAO.login(usuario);
+    }
+
+    @Override
+    public void registerUsuario(Usuario usuario) {
+        usuarioDAO.registerUsuario(usuario);
     }
     
 }

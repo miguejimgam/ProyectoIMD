@@ -5,11 +5,13 @@
  */
 package com.arelance.proyectoimd.dao.usuario.impl;
 
-import Beans.Usuario;
+import com.arelance.proyectoimd.domain.Usuario;
 import com.arelance.proyectoimd.dao.usuario.UsuarioDAO;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -22,7 +24,18 @@ public class UsuarioDAOImpl implements UsuarioDAO{
     
     @Override
     public Usuario login(Usuario usuario) {
-        return em.find(Usuario.class, usuario.getUser());
+        Query usuarioQuery = em.createNamedQuery("Usuario.findByNickUsuario", Usuario.class);
+        usuarioQuery.setParameter("nickUsuario", usuario.getNickUsuario());
+        List<Usuario> lista = usuarioQuery.getResultList();
+        if (lista.size() == 0) {
+            return null;
+        } 
+        return lista.get(0);
+   }
+
+    @Override
+    public void registerUsuario(Usuario usuario) {
+        em.persist(usuario);
     }
     
 }

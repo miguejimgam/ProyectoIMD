@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control;
+package com.arelance.proyectoimd.controller;
 
-import Beans.Usuario;
+import com.arelance.proyectoimd.domain.Usuario;
 import com.arelance.proyectoimd.services.usuarioservices.UsuarioService;
 import java.io.IOException;
-import javax.ejb.EJBException;
+import java.io.PrintWriter;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,18 +20,38 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Miguel
  */
-@WebServlet(name = "PreLoginServlet", urlPatterns = {"/PreLoginServlet"})
-public class PreLoginServlet extends HttpServlet {
-    
-@Inject
-UsuarioService usuarioService;
+@WebServlet(name = "PreRegistroServlet", urlPatterns = {"/PreRegistroServlet"})
+public class PreRegistroServlet extends HttpServlet {
 
+    @Inject
+    UsuarioService usuarioService;
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         String usuario = request.getParameter("usuario");
         String password = request.getParameter("password");
-        Usuario login = new Usuario (usuario, password);
-        usuarioService.login(login);
+        Usuario registro = new Usuario();
+        registro.setNickUsuario(usuario);
+        registro.setContraseñaUsuario(password);
+        
+        Usuario comprobar = usuarioService.login(registro);
+        if (comprobar != null) {
+            request.setAttribute("badRegister", true);
+            getServletContext().getRequestDispatcher("/registro.jsp").forward(request, response);
+        } else {
+            usuarioService.registerUsuario(registro);
+            request.setAttribute("registrado", true);
+            getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+        }
         
     }
 
