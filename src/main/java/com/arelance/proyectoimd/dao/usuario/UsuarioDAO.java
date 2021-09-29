@@ -16,4 +16,5 @@ import javax.ejb.Local;
 public interface UsuarioDAO {
     public Usuario login(Usuario usuario);
     public void registerUsuario(Usuario usuario);
+    public Usuario findUsuarioById(Usuario usuario);
 }

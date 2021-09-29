@@ -37,5 +37,10 @@ public class UsuarioDAOImpl implements UsuarioDAO{
     public void registerUsuario(Usuario usuario) {
         em.persist(usuario);
     }
+
+    @Override
+    public Usuario findUsuarioById(Usuario usuario) {
+        return em.find(Usuario.class, usuario.getIdusuario());
+    }
     
 }

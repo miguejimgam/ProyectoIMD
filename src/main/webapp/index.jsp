@@ -18,7 +18,8 @@
                 out.write("<a href='login.jsp'><button>Login</button></a>");
                 out.write("<a href='registro.jsp'><button>Registro</button></a>");
             } else {
-                out.write("Usuario logeado con exito");
+                out.write("Usuario logeado con exito<br>");
+                out.write("<a href='perfil.jsp'><button>Modificar Perfil</button></a>");
             }
         %>
     </body>

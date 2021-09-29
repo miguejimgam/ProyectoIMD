@@ -28,5 +28,10 @@ public class UsuarioServiceImpl implements UsuarioService{
     public void registerUsuario(Usuario usuario) {
         usuarioDAO.registerUsuario(usuario);
     }
+
+    @Override
+    public Usuario findUsuarioById(Usuario usuario) {
+        return usuarioDAO.findUsuarioById(usuario);
+    }
     
 }
