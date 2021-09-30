@@ -9,7 +9,6 @@ import com.arelance.proyectoimd.domain.Direccion;
 import com.arelance.proyectoimd.domain.Usuario;
 import com.arelance.proyectoimd.services.usuarioservices.UsuarioService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,34 +39,18 @@ public class PostDireccionServlet extends HttpServlet {
 
                 
         response.setContentType("text/html;charset=UTF-8");
-        Usuario loggedUser = (Usuario) request.getSession().getAttribute("loggedUser");
-        
-        String calle_direccion = request.getParameter("calle_direccion");
-        String numero_direccion = request.getParameter("numero_direccion");
-        String bloque_direccion = request.getParameter("bloque_direccion");
-        String portal_direccion = request.getParameter("portal_direccion");
-        String piso_direccion = request.getParameter("piso_direccion");
-        String puerta_direccion = request.getParameter("puerta_direccion");
-        String localidad_direccion = request.getParameter("localidad_direccion");
-        String cp_direccion = request.getParameter("cp_direccion");
-        String provincia_direccion = request.getParameter("provincia_direccion");
-        
-        Direccion direccionRegistro;
-        
-        if (loggedUser.getDireccion() == null) {
-            direccionRegistro = new Direccion();
-        } else {
-            direccionRegistro = loggedUser.getDireccion();
-        }
-        direccionRegistro.setCalleDireccion(calle_direccion);
-        direccionRegistro.setNumeroDireccion(numero_direccion);
-        direccionRegistro.setBloqueDireccion(bloque_direccion);
-        direccionRegistro.setPortalDireccion(portal_direccion);
-        direccionRegistro.setPisoDireccion(piso_direccion);
-        direccionRegistro.setPuertaDireccion(puerta_direccion);
-        direccionRegistro.setLocalidadDireccion(localidad_direccion);
-        direccionRegistro.setCpDireccion(cp_direccion);
-        direccionRegistro.setProvinciaDireccion(provincia_direccion);
+        Usuario loggedUser = (Usuario) request.getSession().getAttribute("loggedUser");    
+        Direccion direccionRegistro = (loggedUser.getDireccion() == null) ? new Direccion() : loggedUser.getDireccion();
+
+        direccionRegistro.setCalleDireccion(request.getParameter("calle_direccion"));
+        direccionRegistro.setNumeroDireccion(request.getParameter("numero_direccion"));
+        direccionRegistro.setBloqueDireccion(request.getParameter("bloque_direccion"));
+        direccionRegistro.setPortalDireccion(request.getParameter("portal_direccion"));
+        direccionRegistro.setPisoDireccion(request.getParameter("piso_direccion"));
+        direccionRegistro.setPuertaDireccion(request.getParameter("puerta_direccion"));
+        direccionRegistro.setLocalidadDireccion(request.getParameter("localidad_direccion"));
+        direccionRegistro.setCpDireccion(request.getParameter("cp_direccion"));
+        direccionRegistro.setProvinciaDireccion(request.getParameter("provincia_direccion"));
         
         loggedUser.setDireccion(direccionRegistro);
         usuarioService.updateUsuario(loggedUser);

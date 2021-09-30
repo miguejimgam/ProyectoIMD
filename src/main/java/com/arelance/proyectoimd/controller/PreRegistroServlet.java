@@ -37,11 +37,9 @@ public class PreRegistroServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String usuario = request.getParameter("usuario");
-        String password = request.getParameter("password");
         Usuario registro = new Usuario();
-        registro.setNickUsuario(usuario);
-        registro.setContraseñaUsuario(password);
+        registro.setNickUsuario(request.getParameter("usuario"));
+        registro.setContraseñaUsuario(request.getParameter("password"));
         
         if (usuarioService.login(registro) != null) {
             request.setAttribute("badRegister", true);
