@@ -37,11 +37,12 @@ public class PreCambiarServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Usuario loggedUser = usuarioService.findUsuarioById((Usuario) request.getSession().getAttribute("loggedUser"));
+        Usuario loggedUser = (Usuario) request.getSession().getAttribute("loggedUser");
         loggedUser.setCorreoUsuario(request.getParameter("email"));
         loggedUser.setNombreUsuario(request.getParameter("name"));
         loggedUser.setApellidoUsuario(request.getParameter("surname"));
         loggedUser.setTelefonoUsuario(request.getParameter("telefono"));
+        usuarioService.updateUsuario(loggedUser);
         request.getSession().setAttribute("loggedUser", loggedUser);
         getServletContext().getRequestDispatcher("/direccion.jsp").forward(request, response);
     }

@@ -64,8 +64,9 @@ public class PostDireccionServlet extends HttpServlet {
         direccionRegistro.setProvinciaDireccion(provincia_direccion);
         
         loggedUser.setDireccion(direccionRegistro);
-        usuarioService.registerUsuario(loggedUser);
+        usuarioService.updateUsuario(loggedUser);
         getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        //TODO: Cuando se actualiza un usuario, se crea una direccion nueva en la base de datos en lugar de modificarse la original
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

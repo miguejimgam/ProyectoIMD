@@ -38,7 +38,7 @@ public class PreLoginServlet extends HttpServlet {
             request.setAttribute("badLogin", true);
             getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         } else {
-        request.getSession().setAttribute("loggedUser", loggedUser);
+        request.getSession().setAttribute("loggedUser", usuarioService.findUsuarioById(loggedUser));
         getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
