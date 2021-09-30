@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form method="GET" action="./PreCambiarServlet">
+        <form method="GET" action="../PreCambiarServlet">
             <label for="email">email:  </label>
             <input type="text" name="email" id="email" value="${loggedUser!=null?loggedUser.nickUsuario:''}"><br>
             <label for="name">Nombre: </label>

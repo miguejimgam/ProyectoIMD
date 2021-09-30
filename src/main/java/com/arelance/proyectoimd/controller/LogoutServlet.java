@@ -5,11 +5,8 @@
  */
 package com.arelance.proyectoimd.controller;
 
-import com.arelance.proyectoimd.domain.Usuario;
-import com.arelance.proyectoimd.services.usuarioservices.UsuarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,11 +17,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Miguel
  */
-@WebServlet(name = "PreRegistroServlet", urlPatterns = {"/PreRegistroServlet"})
-public class PreRegistroServlet extends HttpServlet {
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
+public class LogoutServlet extends HttpServlet {
 
-    @Inject
-    UsuarioService usuarioService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,21 +32,8 @@ public class PreRegistroServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String usuario = request.getParameter("usuario");
-        String password = request.getParameter("password");
-        Usuario registro = new Usuario();
-        registro.setNickUsuario(usuario);
-        registro.setContraseñaUsuario(password);
-        
-        if (usuarioService.login(registro) != null) {
-            request.setAttribute("badRegister", true);
-            getServletContext().getRequestDispatcher("/registro.jsp").forward(request, response);
-        } else {
-            usuarioService.registerUsuario(registro);
-            request.setAttribute("registrado", true);
-            getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
-        }
-        
+        request.getSession().invalidate();
+        response.sendRedirect("index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

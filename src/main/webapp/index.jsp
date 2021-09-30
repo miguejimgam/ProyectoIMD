@@ -16,10 +16,10 @@
         <%
             if (request.getSession(false) == null) {
                 out.write("<a href='login.jsp'><button>Login</button></a>");
-                out.write("<a href='registro.jsp'><button>Registro</button></a>");
+                out.write("<a href='forms/registro.jsp'><button>Registro</button></a>");
             } else {
-                out.write("Usuario logeado con exito<br>");
-                out.write("<a href='perfil.jsp'><button>Modificar Perfil</button></a>");
+                out.write("<a href='LogoutServlet'><button>Cerrar Sesión</button></a><br>");
+                out.write("<a href='forms/perfil.jsp'><button>Modificar Perfil</button></a>");
             }
         %>
     </body>

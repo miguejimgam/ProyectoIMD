@@ -14,7 +14,7 @@
         <title>Registro</title>
     </head>
     <body>
-        <form method="GET" action="./PreRegistroServlet">
+        <form method="GET" action="../PreRegistroServlet">
             <label for="usuario">Usuario</label>
             <input type="text" name="usuario" id="usuario">
             <label for="password">Contraseña</label>
@@ -22,7 +22,7 @@
             <br><br>
             <input type="submit" value="Enviar">
         </form>
-        <a href="index.jsp"><button>Volver</button></a>
+        <a href="../index.jsp"><button>Volver</button></a>
     <c:out value="${badRegister != null?'Este usuario ya esta en uso':''}" />
 </body>
 </html>
