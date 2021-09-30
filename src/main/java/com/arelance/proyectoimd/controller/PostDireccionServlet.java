@@ -5,8 +5,12 @@
  */
 package com.arelance.proyectoimd.controller;
 
+import com.arelance.proyectoimd.domain.Direccion;
+import com.arelance.proyectoimd.domain.Usuario;
+import com.arelance.proyectoimd.services.usuarioservices.UsuarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +23,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PostDireccionServlet", urlPatterns = {"/PostDireccionServlet"})
 public class PostDireccionServlet extends HttpServlet {
-
+        
+        @Inject
+        UsuarioService usuarioService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,19 +37,35 @@ public class PostDireccionServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+                
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PostDireccionServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PostDireccionServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        Usuario loggedUser = (Usuario) request.getSession().getAttribute("loggedUser");
+        
+        String calle_direccion = request.getParameter("calle_direccion");
+        String numero_direccion = request.getParameter("numero_direccion");
+        String bloque_direccion = request.getParameter("bloque_direccion");
+        String portal_direccion = request.getParameter("portal_direccion");
+        String piso_direccion = request.getParameter("piso_direccion");
+        String puerta_direccion = request.getParameter("puerta_direccion");
+        String localidad_direccion = request.getParameter("localidad_direccion");
+        String cp_direccion = request.getParameter("cp_direccion");
+        String provincia_direccion = request.getParameter("provincia_direccion");
+        
+        Direccion direccionRegistro = new Direccion();
+        direccionRegistro.setCalleDireccion(calle_direccion);
+        direccionRegistro.setNumeroDireccion(numero_direccion);
+        direccionRegistro.setBloqueDireccion(bloque_direccion);
+        direccionRegistro.setPortalDireccion(portal_direccion);
+        direccionRegistro.setPisoDireccion(piso_direccion);
+        direccionRegistro.setPuertaDireccion(puerta_direccion);
+        direccionRegistro.setLocalidadDireccion(localidad_direccion);
+        direccionRegistro.setCpDireccion(cp_direccion);
+        direccionRegistro.setProvinciaDireccion(provincia_direccion);
+        
+        loggedUser.setDireccion(direccionRegistro);
+        usuarioService.registerUsuario(loggedUser);
+        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

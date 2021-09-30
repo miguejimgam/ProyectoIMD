@@ -33,5 +33,10 @@ public class UsuarioServiceImpl implements UsuarioService{
     public Usuario findUsuarioById(Usuario usuario) {
         return usuarioDAO.findUsuarioById(usuario);
     }
+
+    @Override
+    public void updateUsuario(Usuario usuario) {
+        usuarioDAO.updateUsuario(usuario);
+    }
     
 }

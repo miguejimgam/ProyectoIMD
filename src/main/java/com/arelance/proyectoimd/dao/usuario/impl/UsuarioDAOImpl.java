@@ -42,5 +42,10 @@ public class UsuarioDAOImpl implements UsuarioDAO{
     public Usuario findUsuarioById(Usuario usuario) {
         return em.find(Usuario.class, usuario.getIdusuario());
     }
+
+    @Override
+    public void updateUsuario(Usuario usuario) {
+        em.merge(usuario);
+    }
     
 }

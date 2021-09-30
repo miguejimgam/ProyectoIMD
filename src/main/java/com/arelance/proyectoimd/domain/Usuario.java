@@ -7,6 +7,7 @@ package com.arelance.proyectoimd.domain;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -60,9 +62,9 @@ public class Usuario implements Serializable {
     @Size(max = 45)
     @Column(name = "telefono_usuario")
     private String telefonoUsuario;
-    @JoinColumn(name = "iddireccion", referencedColumnName = "iddireccion")
-    @ManyToOne
-    private Direccion iddireccion;
+    @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion")
+    @OneToOne(cascade = {CascadeType.PERSIST})
+    private Direccion direccion;
 
     public Usuario() {
     }
@@ -127,12 +129,12 @@ public class Usuario implements Serializable {
         this.telefonoUsuario = telefonoUsuario;
     }
 
-    public Direccion getIddireccion() {
-        return iddireccion;
+    public Direccion getDireccion() {
+        return direccion;
     }
 
-    public void setIddireccion(Direccion iddireccion) {
-        this.iddireccion = iddireccion;
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
     }
 
     @Override

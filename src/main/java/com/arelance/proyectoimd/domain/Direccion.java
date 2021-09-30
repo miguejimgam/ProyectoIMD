@@ -43,7 +43,7 @@ public class Direccion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "iddireccion")
+    @Column(name = "id_direccion")
     private Integer iddireccion;
     @Size(max = 45)
     @Column(name = "calle_direccion")
@@ -72,8 +72,6 @@ public class Direccion implements Serializable {
     @Size(max = 45)
     @Column(name = "provincia_direccion")
     private String provinciaDireccion;
-    @OneToMany(mappedBy = "iddireccion")
-    private List<Usuario> usuarioList;
 
     public Direccion() {
     }
@@ -160,14 +158,6 @@ public class Direccion implements Serializable {
 
     public void setProvinciaDireccion(String provinciaDireccion) {
         this.provinciaDireccion = provinciaDireccion;
-    }
-
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
-    }
-
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
     }
 
     @Override
