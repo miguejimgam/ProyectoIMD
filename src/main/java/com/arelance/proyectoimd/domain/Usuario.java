@@ -63,7 +63,7 @@ public class Usuario implements Serializable {
     @Column(name = "telefono_usuario")
     private String telefonoUsuario;
     @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion")
-    @OneToOne(cascade = {CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.MERGE})
     private Direccion direccion;
 
     public Usuario() {

@@ -52,7 +52,13 @@ public class PostDireccionServlet extends HttpServlet {
         String cp_direccion = request.getParameter("cp_direccion");
         String provincia_direccion = request.getParameter("provincia_direccion");
         
-        Direccion direccionRegistro = new Direccion();
+        Direccion direccionRegistro;
+        
+        if (loggedUser.getDireccion() == null) {
+            direccionRegistro = new Direccion();
+        } else {
+            direccionRegistro = loggedUser.getDireccion();
+        }
         direccionRegistro.setCalleDireccion(calle_direccion);
         direccionRegistro.setNumeroDireccion(numero_direccion);
         direccionRegistro.setBloqueDireccion(bloque_direccion);
@@ -66,7 +72,6 @@ public class PostDireccionServlet extends HttpServlet {
         loggedUser.setDireccion(direccionRegistro);
         usuarioService.updateUsuario(loggedUser);
         getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-        //TODO: Cuando se actualiza un usuario, se crea una direccion nueva en la base de datos en lugar de modificarse la original
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
