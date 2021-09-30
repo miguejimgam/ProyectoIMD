@@ -14,23 +14,23 @@
     <body>
         <form method="GET" action="./PostDireccionServlet">
             <label for="calle_direccion">Calle: </label>
-            <input type="text" name="calle_direccion" id="calle_direccion"><br>
+            <input type="text" name="calle_direccion" id="calle_direccion" value="${loggedUser!=null?loggedUser.direccion.calleDireccion:''}"><br>
             <label for="numero_direccion">Numero: </label>
-            <input type="text" name="numero_direccion" id="numero_direccion"><br>
+            <input type="text" name="numero_direccion" id="numero_direccion" value="${loggedUser!=null?loggedUser.direccion.numeroDireccion:''}"><br>
             <label for="bloque_direccion">Bloque: </label>
-            <input type="text" name="bloque_direccion" id="bloque_direccion"><br>
+            <input type="text" name="bloque_direccion" id="bloque_direccion" value="${loggedUser!=null?loggedUser.direccion.bloqueDireccion:''}"><br>
             <label for="portal_direccion">Portal: </label>
-            <input type="text" name="portal_direccion" id="portal_direccion"><br>
+            <input type="text" name="portal_direccion" id="portal_direccion" value="${loggedUser!=null?loggedUser.direccion.portalDireccion:''}"><br>
             <label for="piso_direccion">Piso:  </label>
-            <input type="text" name="piso_direccion" id="piso_direccion"><br>
+            <input type="text" name="piso_direccion" id="piso_direccion" value="${loggedUser!=null?loggedUser.direccion.pisoDireccion:''}"><br>
             <label for="puerta_direccion">Puerta: </label>
-            <input type="text" name="puerta_direccion" id="puerta_direccion"><br>
+            <input type="text" name="puerta_direccion" id="puerta_direccion" value="${loggedUser!=null?loggedUser.direccion.puertaDireccion:''}"><br>
             <label for="localidad_direccion">Localidad: </label>
-            <input type="text" name="localidad_direccion" id="localidad_direccion"><br>
+            <input type="text" name="localidad_direccion" id="localidad_direccion" value="${loggedUser!=null?loggedUser.direccion.localidadDireccion:''}"><br>
             <label for="cp_direccion">Código postal: </label>
-            <input type="text" name="cp_direccion" id="cp_direccion"><br>
+            <input type="text" name="cp_direccion" id="cp_direccion" value="${loggedUser!=null?loggedUser.direccion.cpDireccion:''}"><br>
             <label for="provincia_direccion">Provincia: </label>
-            <input type="text" name="provincia_direccion" id="provincia_direccion">
+            <input type="text" name="provincia_direccion" id="provincia_direccion" value="${loggedUser!=null?loggedUser.direccion.provinciaDireccion:''}">
             <br><br>
             <input type="submit" value="Enviar">
         </form>

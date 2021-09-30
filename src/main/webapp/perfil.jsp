@@ -14,13 +14,13 @@
     <body>
         <form method="GET" action="./PreCambiarServlet">
             <label for="email">email:  </label>
-            <input type="text" name="email" id="email"><br>
+            <input type="text" name="email" id="email" value="${loggedUser!=null?loggedUser.nickUsuario:''}"><br>
             <label for="name">Nombre: </label>
-            <input type="text" name="name" id="name"><br>
+            <input type="text" name="name" id="name" value="${loggedUser!=null?loggedUser.nombreUsuario:''}"><br>
             <label for="surname">Apellido: </label>
-            <input type="text" name="surname" id="surname"><br>
+            <input type="text" name="surname" id="surname" value="${loggedUser!=null?loggedUser.apellidoUsuario:''}"><br>
             <label for="telefono">Telefono: </label>
-            <input type="text" name="telefono" id="telefono">
+            <input type="text" name="telefono" id="telefono" value="${loggedUser!=null?loggedUser.telefonoUsuario:''}"">
             <br><br>
             <input type="submit" value="Enviar">
         </form>

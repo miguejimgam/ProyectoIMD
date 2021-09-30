@@ -42,6 +42,7 @@ public class PreCambiarServlet extends HttpServlet {
         loggedUser.setNombreUsuario(request.getParameter("name"));
         loggedUser.setApellidoUsuario(request.getParameter("surname"));
         loggedUser.setTelefonoUsuario(request.getParameter("telefono"));
+        
         usuarioService.updateUsuario(loggedUser);
         request.getSession().setAttribute("loggedUser", loggedUser);
         getServletContext().getRequestDispatcher("/direccion.jsp").forward(request, response);
