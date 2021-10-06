@@ -6,16 +6,16 @@
 package com.arelance.proyectoimd.domain;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -27,7 +27,7 @@ import javax.validation.constraints.Size;
 @Table(name = "direccion")
 @NamedQueries({
     @NamedQuery(name = "Direccion.findAll", query = "SELECT d FROM Direccion d"),
-    @NamedQuery(name = "Direccion.findByIddireccion", query = "SELECT d FROM Direccion d WHERE d.iddireccion = :iddireccion"),
+    @NamedQuery(name = "Direccion.findByIdDireccion", query = "SELECT d FROM Direccion d WHERE d.idDireccion = :idDireccion"),
     @NamedQuery(name = "Direccion.findByCalleDireccion", query = "SELECT d FROM Direccion d WHERE d.calleDireccion = :calleDireccion"),
     @NamedQuery(name = "Direccion.findByNumeroDireccion", query = "SELECT d FROM Direccion d WHERE d.numeroDireccion = :numeroDireccion"),
     @NamedQuery(name = "Direccion.findByBloqueDireccion", query = "SELECT d FROM Direccion d WHERE d.bloqueDireccion = :bloqueDireccion"),
@@ -44,7 +44,7 @@ public class Direccion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_direccion")
-    private Integer iddireccion;
+    private Integer idDireccion;
     @Size(max = 45)
     @Column(name = "calle_direccion")
     private String calleDireccion;
@@ -72,20 +72,25 @@ public class Direccion implements Serializable {
     @Size(max = 45)
     @Column(name = "provincia_direccion")
     private String provinciaDireccion;
+    @OneToOne(mappedBy = "iddireccionEntrenador", fetch = FetchType.LAZY)
+    private Entrenador entrenador;
+    @OneToOne(mappedBy = "direccion", fetch = FetchType.LAZY)
+    private Usuario usuario;
 
     public Direccion() {
     }
 
-    public Direccion(Integer iddireccion) {
-        this.iddireccion = iddireccion;
+    public Direccion(Integer idDireccion) {
+        this.idDireccion = idDireccion;
+    }
+    
+// <editor-fold defaultstate="collapsed" desc="Getter and Setters. Click on the + sign on the left to edit the code.">
+    public Integer getIdDireccion() {
+        return idDireccion;
     }
 
-    public Integer getIddireccion() {
-        return iddireccion;
-    }
-
-    public void setIddireccion(Integer iddireccion) {
-        this.iddireccion = iddireccion;
+    public void setIdDireccion(Integer idDireccion) {
+        this.idDireccion = idDireccion;
     }
 
     public String getCalleDireccion() {
@@ -160,10 +165,26 @@ public class Direccion implements Serializable {
         this.provinciaDireccion = provinciaDireccion;
     }
 
+    public Entrenador getEntrenador() {
+        return entrenador;
+    }
+
+    public void setEntrenador(Entrenador entrenador) {
+        this.entrenador = entrenador;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }//</editor-fold>
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (iddireccion != null ? iddireccion.hashCode() : 0);
+        hash += (idDireccion != null ? idDireccion.hashCode() : 0);
         return hash;
     }
 
@@ -174,7 +195,7 @@ public class Direccion implements Serializable {
             return false;
         }
         Direccion other = (Direccion) object;
-        if ((this.iddireccion == null && other.iddireccion != null) || (this.iddireccion != null && !this.iddireccion.equals(other.iddireccion))) {
+        if ((this.idDireccion == null && other.idDireccion != null) || (this.idDireccion != null && !this.idDireccion.equals(other.idDireccion))) {
             return false;
         }
         return true;
@@ -182,7 +203,7 @@ public class Direccion implements Serializable {
 
     @Override
     public String toString() {
-        return "com.arelance.proyectoimd.domain.Direccion[ iddireccion=" + iddireccion + " ]";
+        return "com.arelance.proyectoimd.domain.Direccion[ idDireccion=" + idDireccion + " ]";
     }
     
 }

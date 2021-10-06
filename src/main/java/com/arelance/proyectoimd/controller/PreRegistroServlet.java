@@ -8,7 +8,6 @@ package com.arelance.proyectoimd.controller;
 import com.arelance.proyectoimd.domain.Usuario;
 import com.arelance.proyectoimd.services.usuarioservices.UsuarioService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,9 +38,9 @@ public class PreRegistroServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Usuario registro = new Usuario();
         registro.setNickUsuario(request.getParameter("usuario"));
-        registro.setContraseñaUsuario(request.getParameter("password"));
+        registro.setPasswordUsuario(request.getParameter("password"));
         
-        if (usuarioService.login(registro) != null) {
+        if (usuarioService.findUsuarioByNick(registro) != null) {
             request.setAttribute("badRegister", true);
             getServletContext().getRequestDispatcher("/registro.jsp").forward(request, response);
         } else {

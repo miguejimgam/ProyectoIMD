@@ -36,11 +36,10 @@ public class PostDireccionServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-                
+        
         response.setContentType("text/html;charset=UTF-8");
         Usuario loggedUser = (Usuario) request.getSession().getAttribute("loggedUser");    
-        Direccion direccionRegistro = (loggedUser.getDireccion() == null) ? new Direccion() : loggedUser.getDireccion();
+        Direccion direccionRegistro = (loggedUser.getDireccion()== null) ? new Direccion() : loggedUser.getDireccion();
 
         direccionRegistro.setCalleDireccion(request.getParameter("calle_direccion"));
         direccionRegistro.setNumeroDireccion(request.getParameter("numero_direccion"));

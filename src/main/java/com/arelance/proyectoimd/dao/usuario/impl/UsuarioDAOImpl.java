@@ -7,9 +7,10 @@ package com.arelance.proyectoimd.dao.usuario.impl;
 
 import com.arelance.proyectoimd.domain.Usuario;
 import com.arelance.proyectoimd.dao.usuario.UsuarioDAO;
-import java.util.List;
+import com.arelance.proyectoimd.domain.Actividaddeporte;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -18,20 +19,10 @@ import javax.persistence.Query;
  * @author Miguel
  */
 @Stateless
-public class UsuarioDAOImpl implements UsuarioDAO{
+public class UsuarioDAOImpl implements UsuarioDAO {
+
     @PersistenceContext(unitName = "IDBConnection")
     EntityManager em;
-    
-    @Override
-    public Usuario login(Usuario usuario) {
-        Query usuarioQuery = em.createNamedQuery("Usuario.findByNickUsuario", Usuario.class);
-        usuarioQuery.setParameter("nickUsuario", usuario.getNickUsuario());
-        List<Usuario> lista = usuarioQuery.getResultList();
-        if (lista.size() == 0) {
-            return null;
-        } 
-        return lista.get(0);
-   }
 
     @Override
     public void registerUsuario(Usuario usuario) {
@@ -40,12 +31,28 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 
     @Override
     public Usuario findUsuarioById(Usuario usuario) {
-        return em.find(Usuario.class, usuario.getIdusuario());
+        return em.find(Usuario.class, usuario.getIdUsuario());
     }
 
     @Override
     public void updateUsuario(Usuario usuario) {
         em.merge(usuario);
     }
-    
+
+    @Override
+    public void testMany(Usuario usuario, Actividaddeporte actividaddeporte) {
+        em.merge(usuario);
+        em.merge(actividaddeporte);
+    }
+
+    @Override
+    public Usuario findUsuarioByNick(Usuario usuario) {
+        Query usuarioQuery = em.createNamedQuery("Usuario.findByNickUsuario", Usuario.class);
+        usuarioQuery.setParameter("nickUsuario", usuario.getNickUsuario());
+        try {
+            return (Usuario) usuarioQuery.getSingleResult();
+        } catch (NoResultException ex){
+            return null;
+        }
+    }
 }

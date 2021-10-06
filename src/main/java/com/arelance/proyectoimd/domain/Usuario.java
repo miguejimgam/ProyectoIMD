@@ -6,15 +6,18 @@
 package com.arelance.proyectoimd.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -29,10 +32,10 @@ import javax.validation.constraints.Size;
 @Table(name = "usuario")
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findByIdusuario", query = "SELECT u FROM Usuario u WHERE u.idusuario = :idusuario"),
+    @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
     @NamedQuery(name = "Usuario.findByNickUsuario", query = "SELECT u FROM Usuario u WHERE u.nickUsuario = :nickUsuario"),
     @NamedQuery(name = "Usuario.findByCorreoUsuario", query = "SELECT u FROM Usuario u WHERE u.correoUsuario = :correoUsuario"),
-    @NamedQuery(name = "Usuario.findByContrase\u00f1aUsuario", query = "SELECT u FROM Usuario u WHERE u.contrase\u00f1aUsuario = :contrase\u00f1aUsuario"),
+    @NamedQuery(name = "Usuario.findByPassWordUsuario", query = "SELECT u FROM Usuario u WHERE u.passwordUsuario = :passwordUsuario"),
     @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario"),
     @NamedQuery(name = "Usuario.findByApellidoUsuario", query = "SELECT u FROM Usuario u WHERE u.apellidoUsuario = :apellidoUsuario"),
     @NamedQuery(name = "Usuario.findByTelefonoUsuario", query = "SELECT u FROM Usuario u WHERE u.telefonoUsuario = :telefonoUsuario")})
@@ -42,8 +45,8 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idusuario")
-    private Integer idusuario;
+    @Column(name = "id_usuario")
+    private Integer idUsuario;
     @Size(max = 45)
     @Column(name = "nick_usuario")
     private String nickUsuario;
@@ -51,8 +54,8 @@ public class Usuario implements Serializable {
     @Column(name = "correo_usuario")
     private String correoUsuario;
     @Size(max = 45)
-    @Column(name = "contrase\u00f1a_usuario")
-    private String contraseñaUsuario;
+    @Column(name = "password_usuario")
+    private String passwordUsuario;
     @Size(max = 45)
     @Column(name = "nombre_usuario")
     private String nombreUsuario;
@@ -63,22 +66,26 @@ public class Usuario implements Serializable {
     @Column(name = "telefono_usuario")
     private String telefonoUsuario;
     @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion")
-    @OneToOne(cascade = {CascadeType.MERGE})
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Direccion direccion;
-
+    @ManyToMany(targetEntity = Actividaddeporte.class, cascade = CascadeType.PERSIST)
+    private List<Actividaddeporte> listaActividadDeporte;
+    
     public Usuario() {
+        this.listaActividadDeporte = new ArrayList<>();
     }
 
-    public Usuario(Integer idusuario) {
-        this.idusuario = idusuario;
+    public Usuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
+// <editor-fold defaultstate="collapsed" desc="Getter and Setters. Click on the + sign on the left to edit the code.">
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public Integer getIdusuario() {
-        return idusuario;
-    }
-
-    public void setIdusuario(Integer idusuario) {
-        this.idusuario = idusuario;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNickUsuario() {
@@ -97,12 +104,12 @@ public class Usuario implements Serializable {
         this.correoUsuario = correoUsuario;
     }
 
-    public String getContraseñaUsuario() {
-        return contraseñaUsuario;
+    public String getPasswordUsuario() {
+        return passwordUsuario;
     }
 
-    public void setContraseñaUsuario(String contraseñaUsuario) {
-        this.contraseñaUsuario = contraseñaUsuario;
+    public void setPasswordUsuario(String passwordUsuario) {
+        this.passwordUsuario = passwordUsuario;
     }
 
     public String getNombreUsuario() {
@@ -137,10 +144,18 @@ public class Usuario implements Serializable {
         this.direccion = direccion;
     }
 
+    public List<Actividaddeporte> getListaActividadDeporte() {
+        return listaActividadDeporte;
+    }
+
+    public void setListaActividadDeporte(List<Actividaddeporte> listaActividadDeporte) {
+        this.listaActividadDeporte = listaActividadDeporte;
+    }// </editor-fold>
+    
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idusuario != null ? idusuario.hashCode() : 0);
+        hash += (idUsuario != null ? idUsuario.hashCode() : 0);
         return hash;
     }
 
@@ -151,7 +166,7 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.idusuario == null && other.idusuario != null) || (this.idusuario != null && !this.idusuario.equals(other.idusuario))) {
+        if ((this.idUsuario == null && other.idUsuario != null) || (this.idUsuario != null && !this.idUsuario.equals(other.idUsuario))) {
             return false;
         }
         return true;
@@ -159,7 +174,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "com.arelance.proyectoimd.domain.Usuario[ idusuario=" + idusuario + " ]";
+        return "com.arelance.proyectoimd.domain.Usuario[ idUsuario=" + idUsuario + " ]";
     }
     
 }

@@ -14,8 +14,8 @@ import javax.ejb.Local;
  */
 @Local
 public interface UsuarioService {
-    public Usuario login(Usuario usuario);
     public void registerUsuario(Usuario usuario);
     public Usuario findUsuarioById(Usuario usuario);
+    public Usuario findUsuarioByNick(Usuario usuario);
     public void updateUsuario(Usuario usuario);
 }

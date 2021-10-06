@@ -18,11 +18,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     @Inject
     private UsuarioDAO usuarioDAO;
-    
-    @Override
-    public Usuario login(Usuario usuario) {
-        return usuarioDAO.login(usuario);
-    }
 
     @Override
     public void registerUsuario(Usuario usuario) {
@@ -37,6 +32,11 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Override
     public void updateUsuario(Usuario usuario) {
         usuarioDAO.updateUsuario(usuario);
+    }
+
+    @Override
+    public Usuario findUsuarioByNick(Usuario usuario) {
+        return usuarioDAO.findUsuarioByNick(usuario);
     }
     
 }

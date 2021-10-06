@@ -6,9 +6,10 @@
 package com.arelance.proyectoimd.controller;
 
 import com.arelance.proyectoimd.domain.Usuario;
+import com.arelance.proyectoimd.domain.dto.LoginDTO;
+import com.arelance.proyectoimd.dto.login.LoginService;
 import com.arelance.proyectoimd.services.usuarioservices.UsuarioService;
 import java.io.IOException;
-import javax.ejb.EJBException;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,24 +23,28 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PreLoginServlet", urlPatterns = {"/PreLoginServlet"})
 public class PreLoginServlet extends HttpServlet {
-    
+
+    @Inject
+    LoginService loginService;
     @Inject
     UsuarioService usuarioService;
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String usuario = request.getParameter("usuario");
         String password = request.getParameter("password");
-        Usuario login = new Usuario();
-        login.setNickUsuario(usuario);
-        login.setContraseñaUsuario(password);
-        Usuario loggedUser = usuarioService.login(login);
-        if (loggedUser == null) {
+        LoginDTO login = new LoginDTO(usuario, password);
+        LoginDTO loginTry = loginService.login(login);
+        if (loginTry == null) {
             request.setAttribute("badLogin", true);
             getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         } else {
-        request.getSession().setAttribute("loggedUser", usuarioService.findUsuarioById(loggedUser));
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            Usuario loggedUser = new Usuario();
+            loggedUser.setNickUsuario(usuario);
+            loggedUser.setPasswordUsuario(password);
+            
+            request.getSession().setAttribute("loggedUser", usuarioService.findUsuarioByNick(loggedUser));
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
 

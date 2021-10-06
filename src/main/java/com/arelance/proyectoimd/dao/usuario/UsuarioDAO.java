@@ -5,6 +5,7 @@
  */
 package com.arelance.proyectoimd.dao.usuario;
 
+import com.arelance.proyectoimd.domain.Actividaddeporte;
 import com.arelance.proyectoimd.domain.Usuario;
 import javax.ejb.Local;
 
@@ -14,8 +15,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface UsuarioDAO {
-    public Usuario login(Usuario usuario);
     public void registerUsuario(Usuario usuario);
     public Usuario findUsuarioById(Usuario usuario);
+    public Usuario findUsuarioByNick(Usuario usuario);
     public void updateUsuario(Usuario usuario);
+    public void testMany(Usuario usuario, Actividaddeporte actividaddeporte);
 }
