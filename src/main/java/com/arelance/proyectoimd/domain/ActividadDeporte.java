@@ -6,12 +6,19 @@
 package com.arelance.proyectoimd.domain;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -26,6 +33,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "ActividadDeporte.findAll", query = "SELECT a FROM ActividadDeporte a"),
     @NamedQuery(name = "ActividadDeporte.findByIdActvidad", query = "SELECT a FROM ActividadDeporte a WHERE a.idActvidad = :idActvidad"),
+    @NamedQuery(name = "ActividadDeporte.findByNombreActividad", query = "SELECT a FROM ActividadDeporte a WHERE a.nombreActividad = :nombreActividad"),
     @NamedQuery(name = "ActividadDeporte.findByDuracionActividad", query = "SELECT a FROM ActividadDeporte a WHERE a.duracionActividad = :duracionActividad"),
     @NamedQuery(name = "ActividadDeporte.findByLocalizacionActividad", query = "SELECT a FROM ActividadDeporte a WHERE a.localizacionActividad = :localizacionActividad"),
     @NamedQuery(name = "ActividadDeporte.findByPrecioActividad", query = "SELECT a FROM ActividadDeporte a WHERE a.precioActividad = :precioActividad"),
@@ -40,6 +48,9 @@ public class ActividadDeporte implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_actvidad")
     private Integer idActvidad;
+    @Size(max = 45)
+    @Column(name = "nombre_actividad")
+    private String nombreActividad;
     @Size(max = 45)
     @Column(name = "duracion_actividad")
     private String duracionActividad;
@@ -58,6 +69,15 @@ public class ActividadDeporte implements Serializable {
     @Size(max = 45)
     @Column(name = "horario_actividad")
     private String horarioActividad;
+    @JoinColumn(name = "identrenador", referencedColumnName = "id_entrenador")
+    @ManyToOne
+    private Entrenador entrenador;
+    @ManyToMany
+    @JoinTable(
+            name = "curso_has_usuario",
+            joinColumns = @JoinColumn(name = "id_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "id_actividad"))
+    List<Usuario> listaUsuarios;
 
     public ActividadDeporte() {
     }
@@ -72,6 +92,14 @@ public class ActividadDeporte implements Serializable {
 
     public void setIdActvidad(Integer idActvidad) {
         this.idActvidad = idActvidad;
+    }
+
+    public String getNombreActividad() {
+        return nombreActividad;
+    }
+
+    public void setNombreActividad(String nombreActividad) {
+        this.nombreActividad = nombreActividad;
     }
 
     public String getDuracionActividad() {
@@ -122,29 +150,89 @@ public class ActividadDeporte implements Serializable {
         this.horarioActividad = horarioActividad;
     }
 
+    public Entrenador getEntrenador() {
+        return entrenador;
+    }
+
+    public void setEntrenador(Entrenador entrenador) {
+        this.entrenador = entrenador;
+    }
+
+    public List<Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idActvidad != null ? idActvidad.hashCode() : 0);
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.idActvidad);
+        hash = 79 * hash + Objects.hashCode(this.nombreActividad);
+        hash = 79 * hash + Objects.hashCode(this.duracionActividad);
+        hash = 79 * hash + Objects.hashCode(this.localizacionActividad);
+        hash = 79 * hash + Objects.hashCode(this.precioActividad);
+        hash = 79 * hash + Objects.hashCode(this.fechainicioActividad);
+        hash = 79 * hash + Objects.hashCode(this.descripcionActividad);
+        hash = 79 * hash + Objects.hashCode(this.horarioActividad);
+        hash = 79 * hash + Objects.hashCode(this.entrenador);
+        hash = 79 * hash + Objects.hashCode(this.listaUsuarios);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ActividadDeporte)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        ActividadDeporte other = (ActividadDeporte) object;
-        if ((this.idActvidad == null && other.idActvidad != null) || (this.idActvidad != null && !this.idActvidad.equals(other.idActvidad))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ActividadDeporte other = (ActividadDeporte) obj;
+        if (!Objects.equals(this.nombreActividad, other.nombreActividad)) {
+            return false;
+        }
+        if (!Objects.equals(this.duracionActividad, other.duracionActividad)) {
+            return false;
+        }
+        if (!Objects.equals(this.localizacionActividad, other.localizacionActividad)) {
+            return false;
+        }
+        if (!Objects.equals(this.precioActividad, other.precioActividad)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechainicioActividad, other.fechainicioActividad)) {
+            return false;
+        }
+        if (!Objects.equals(this.descripcionActividad, other.descripcionActividad)) {
+            return false;
+        }
+        if (!Objects.equals(this.horarioActividad, other.horarioActividad)) {
+            return false;
+        }
+        if (!Objects.equals(this.idActvidad, other.idActvidad)) {
+            return false;
+        }
+        if (!Objects.equals(this.entrenador, other.entrenador)) {
+            return false;
+        }
+        if (!Objects.equals(this.listaUsuarios, other.listaUsuarios)) {
             return false;
         }
         return true;
     }
 
+  
+
     @Override
     public String toString() {
-        return "com.arelance.proyectoimd.domain.ActividadDeporte[ idActvidad=" + idActvidad + " ]";
+        return "Curso de "+descripcionActividad+" por un precio de "+precioActividad+"€, dado por "+entrenador.getNombreEntrenador()+
+                ". Empieza el "+fechainicioActividad+" con una duración de"+duracionActividad+" minutos los "+horarioActividad+"";
     }
     
 }
