@@ -40,7 +40,7 @@ public class PostDireccionServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Usuario loggedUser = (Usuario) request.getSession().getAttribute("loggedUser");    
         Direccion direccionRegistro = (loggedUser.getDireccion()== null) ? new Direccion() : loggedUser.getDireccion();
-
+        // <editor-fold defaultstate="collapsed" desc="Direccion setters. Click on the + sign on the left to edit the code.">
         direccionRegistro.setCalleDireccion(request.getParameter("calle_direccion"));
         direccionRegistro.setNumeroDireccion(request.getParameter("numero_direccion"));
         direccionRegistro.setBloqueDireccion(request.getParameter("bloque_direccion"));
@@ -49,7 +49,7 @@ public class PostDireccionServlet extends HttpServlet {
         direccionRegistro.setPuertaDireccion(request.getParameter("puerta_direccion"));
         direccionRegistro.setLocalidadDireccion(request.getParameter("localidad_direccion"));
         direccionRegistro.setCpDireccion(request.getParameter("cp_direccion"));
-        direccionRegistro.setProvinciaDireccion(request.getParameter("provincia_direccion"));
+        direccionRegistro.setProvinciaDireccion(request.getParameter("provincia_direccion"));// </editor-fold>
         
         loggedUser.setDireccion(direccionRegistro);
         usuarioService.updateUsuario(loggedUser);

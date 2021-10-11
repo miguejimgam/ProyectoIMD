@@ -39,7 +39,7 @@ public class PreRegistroServlet extends HttpServlet {
         Usuario registro = new Usuario();
         registro.setNickUsuario(request.getParameter("usuario"));
         registro.setPasswordUsuario(request.getParameter("password"));
-        
+        //TODO SERVICIO VALIDACION
         if (usuarioService.findUsuarioByNick(registro) != null) {
             request.setAttribute("badRegister", true);
             getServletContext().getRequestDispatcher("/registro.jsp").forward(request, response);

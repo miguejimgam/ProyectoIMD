@@ -23,5 +23,7 @@
                 out.write("<a href='forms/perfil.jsp'><button>Modificar Perfil</button></a>");
             }
         %>
+        <br>
+         <%@include file="WEB-INF/jspf/listaActividades.jspf" %> 
     </body>
 </html>

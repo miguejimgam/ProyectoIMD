@@ -6,10 +6,8 @@
 package com.arelance.proyectoimd.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +33,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
     @NamedQuery(name = "Usuario.findByNickUsuario", query = "SELECT u FROM Usuario u WHERE u.nickUsuario = :nickUsuario"),
     @NamedQuery(name = "Usuario.findByCorreoUsuario", query = "SELECT u FROM Usuario u WHERE u.correoUsuario = :correoUsuario"),
-    @NamedQuery(name = "Usuario.findByPassWordUsuario", query = "SELECT u FROM Usuario u WHERE u.passwordUsuario = :passwordUsuario"),
+    @NamedQuery(name = "Usuario.findByPasswordUsuario", query = "SELECT u FROM Usuario u WHERE u.passwordUsuario = :passwordUsuario"),
     @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario"),
     @NamedQuery(name = "Usuario.findByApellidoUsuario", query = "SELECT u FROM Usuario u WHERE u.apellidoUsuario = :apellidoUsuario"),
     @NamedQuery(name = "Usuario.findByTelefonoUsuario", query = "SELECT u FROM Usuario u WHERE u.telefonoUsuario = :telefonoUsuario")})
@@ -66,20 +64,18 @@ public class Usuario implements Serializable {
     @Column(name = "telefono_usuario")
     private String telefonoUsuario;
     @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion")
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.LAZY)
     private Direccion direccion;
-    @ManyToMany(targetEntity = Actividaddeporte.class, cascade = CascadeType.PERSIST)
-    private List<Actividaddeporte> listaActividadDeporte;
+    @ManyToMany(mappedBy = "listaUsuarios")
+    List<ActividadDeporte> listaActividades;
     
     public Usuario() {
-        this.listaActividadDeporte = new ArrayList<>();
     }
 
     public Usuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
-    
-// <editor-fold defaultstate="collapsed" desc="Getter and Setters. Click on the + sign on the left to edit the code.">
+
     public Integer getIdUsuario() {
         return idUsuario;
     }
@@ -144,14 +140,6 @@ public class Usuario implements Serializable {
         this.direccion = direccion;
     }
 
-    public List<Actividaddeporte> getListaActividadDeporte() {
-        return listaActividadDeporte;
-    }
-
-    public void setListaActividadDeporte(List<Actividaddeporte> listaActividadDeporte) {
-        this.listaActividadDeporte = listaActividadDeporte;
-    }// </editor-fold>
-    
     @Override
     public int hashCode() {
         int hash = 0;

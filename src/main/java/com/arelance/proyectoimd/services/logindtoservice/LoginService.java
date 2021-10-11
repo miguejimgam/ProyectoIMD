@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.arelance.proyectoimd.dto.login;
+package com.arelance.proyectoimd.services.logindtoservice;
 import com.arelance.proyectoimd.domain.dto.LoginDTO;
 /**
  *

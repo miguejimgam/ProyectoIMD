@@ -8,7 +8,6 @@ package com.arelance.proyectoimd.domain;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,10 +15,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -34,7 +33,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Entrenador.findByIdEntrenador", query = "SELECT e FROM Entrenador e WHERE e.idEntrenador = :idEntrenador"),
     @NamedQuery(name = "Entrenador.findByNickEntrenador", query = "SELECT e FROM Entrenador e WHERE e.nickEntrenador = :nickEntrenador"),
     @NamedQuery(name = "Entrenador.findByCorreoEntrenador", query = "SELECT e FROM Entrenador e WHERE e.correoEntrenador = :correoEntrenador"),
-    @NamedQuery(name = "Entrenador.findByContrase\u00f1aEntrenador", query = "SELECT e FROM Entrenador e WHERE e.contrase\u00f1aEntrenador = :contrase\u00f1aEntrenador"),
+    @NamedQuery(name = "Entrenador.findByPasswordEntrenador", query = "SELECT e FROM Entrenador e WHERE e.passwordEntrenador = :passwordEntrenador"),
     @NamedQuery(name = "Entrenador.findByNombreEntrenador", query = "SELECT e FROM Entrenador e WHERE e.nombreEntrenador = :nombreEntrenador"),
     @NamedQuery(name = "Entrenador.findByApellidoEntrenador", query = "SELECT e FROM Entrenador e WHERE e.apellidoEntrenador = :apellidoEntrenador"),
     @NamedQuery(name = "Entrenador.findByTelefonoEntrenador", query = "SELECT e FROM Entrenador e WHERE e.telefonoEntrenador = :telefonoEntrenador")})
@@ -53,8 +52,8 @@ public class Entrenador implements Serializable {
     @Column(name = "correo_entrenador")
     private String correoEntrenador;
     @Size(max = 45)
-    @Column(name = "contrase\u00f1a_entrenador")
-    private String contraseñaEntrenador;
+    @Column(name = "password_entrenador")
+    private String passwordEntrenador;
     @Size(max = 45)
     @Column(name = "nombre_entrenador")
     private String nombreEntrenador;
@@ -64,10 +63,10 @@ public class Entrenador implements Serializable {
     @Size(max = 45)
     @Column(name = "telefono_entrenador")
     private String telefonoEntrenador;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "entrenador", fetch = FetchType.LAZY)
-    private List<Actividaddeporte> actividaddeporteList;
+    @OneToMany(mappedBy = "identrenador", fetch = FetchType.LAZY)
+    private List<ActividadDeporte> actividadDeporteList;
     @JoinColumn(name = "iddireccion_entrenador", referencedColumnName = "id_direccion")
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Direccion iddireccionEntrenador;
 
     public Entrenador() {
@@ -76,8 +75,7 @@ public class Entrenador implements Serializable {
     public Entrenador(Integer idEntrenador) {
         this.idEntrenador = idEntrenador;
     }
-    
-// <editor-fold defaultstate="collapsed" desc="Getter and Setters. Click on the + sign on the left to edit the code.">
+
     public Integer getIdEntrenador() {
         return idEntrenador;
     }
@@ -102,12 +100,12 @@ public class Entrenador implements Serializable {
         this.correoEntrenador = correoEntrenador;
     }
 
-    public String getContraseñaEntrenador() {
-        return contraseñaEntrenador;
+    public String getPasswordEntrenador() {
+        return passwordEntrenador;
     }
 
-    public void setContraseñaEntrenador(String contraseñaEntrenador) {
-        this.contraseñaEntrenador = contraseñaEntrenador;
+    public void setPasswordEntrenador(String passwordEntrenador) {
+        this.passwordEntrenador = passwordEntrenador;
     }
 
     public String getNombreEntrenador() {
@@ -134,12 +132,12 @@ public class Entrenador implements Serializable {
         this.telefonoEntrenador = telefonoEntrenador;
     }
 
-    public List<Actividaddeporte> getActividaddeporteList() {
-        return actividaddeporteList;
+    public List<ActividadDeporte> getActividadDeporteList() {
+        return actividadDeporteList;
     }
 
-    public void setActividaddeporteList(List<Actividaddeporte> actividaddeporteList) {
-        this.actividaddeporteList = actividaddeporteList;
+    public void setActividadDeporteList(List<ActividadDeporte> actividadDeporteList) {
+        this.actividadDeporteList = actividadDeporteList;
     }
 
     public Direccion getIddireccionEntrenador() {
@@ -148,7 +146,7 @@ public class Entrenador implements Serializable {
 
     public void setIddireccionEntrenador(Direccion iddireccionEntrenador) {
         this.iddireccionEntrenador = iddireccionEntrenador;
-    }//</editor-fold>
+    }
 
     @Override
     public int hashCode() {

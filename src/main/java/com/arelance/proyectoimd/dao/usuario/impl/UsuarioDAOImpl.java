@@ -7,7 +7,7 @@ package com.arelance.proyectoimd.dao.usuario.impl;
 
 import com.arelance.proyectoimd.domain.Usuario;
 import com.arelance.proyectoimd.dao.usuario.UsuarioDAO;
-import com.arelance.proyectoimd.domain.Actividaddeporte;
+import com.arelance.proyectoimd.domain.ActividadDeporte;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -40,8 +40,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public void testMany(Usuario usuario, Actividaddeporte actividaddeporte) {
-        em.merge(usuario);
+    public void testMany(ActividadDeporte actividaddeporte) {
         em.merge(actividaddeporte);
     }
 

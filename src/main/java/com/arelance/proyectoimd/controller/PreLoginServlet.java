@@ -7,7 +7,7 @@ package com.arelance.proyectoimd.controller;
 
 import com.arelance.proyectoimd.domain.Usuario;
 import com.arelance.proyectoimd.domain.dto.LoginDTO;
-import com.arelance.proyectoimd.dto.login.LoginService;
+import com.arelance.proyectoimd.services.logindtoservice.LoginService;
 import com.arelance.proyectoimd.services.usuarioservices.UsuarioService;
 import java.io.IOException;
 import javax.inject.Inject;
@@ -34,8 +34,7 @@ public class PreLoginServlet extends HttpServlet {
         String usuario = request.getParameter("usuario");
         String password = request.getParameter("password");
         LoginDTO login = new LoginDTO(usuario, password);
-        LoginDTO loginTry = loginService.login(login);
-        if (loginTry == null) {
+        if (loginService.login(login) == null) {
             request.setAttribute("badLogin", true);
             getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         } else {

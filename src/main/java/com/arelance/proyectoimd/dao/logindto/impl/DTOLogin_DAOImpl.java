@@ -22,8 +22,9 @@ public class DTOLogin_DAOImpl implements DTOLogin_DAO {
     @Override
     public LoginDTO login(LoginDTO loginDTO) {
         Query query = em.createQuery("SELECT DISTINCT new com.arelance.proyectoimd.domain.dto.LoginDTO "
-                + "(u.nickUsuario, u.passwordUsuario) FROM Usuario u WHERE u.nickUsuario = :nickUsuario");
+                + "(u.nickUsuario, u.passwordUsuario) FROM Usuario u WHERE u.nickUsuario = :nickUsuario AND u.passwordUsuario = :passwordUsuario");
         query.setParameter("nickUsuario", loginDTO.getNickUsuario());
+        query.setParameter("passwordUsuario", loginDTO.getPasswordUsuario());
         try {
             return (LoginDTO) query.getSingleResult();
         } catch (NoResultException ex) {

@@ -7,7 +7,7 @@ package com.arelance.proyectoimd.services.logindtoservice.impl;
 
 import com.arelance.proyectoimd.dao.logindto.DTOLogin_DAO;
 import com.arelance.proyectoimd.domain.dto.LoginDTO;
-import com.arelance.proyectoimd.dto.login.LoginService;
+import com.arelance.proyectoimd.services.logindtoservice.LoginService;
 import javax.inject.Inject;
 
 

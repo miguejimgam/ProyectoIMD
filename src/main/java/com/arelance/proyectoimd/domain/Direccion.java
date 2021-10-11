@@ -6,6 +6,7 @@
 package com.arelance.proyectoimd.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -72,10 +73,8 @@ public class Direccion implements Serializable {
     @Size(max = 45)
     @Column(name = "provincia_direccion")
     private String provinciaDireccion;
-    @OneToOne(mappedBy = "iddireccionEntrenador", fetch = FetchType.LAZY)
-    private Entrenador entrenador;
-    @OneToOne(mappedBy = "direccion", fetch = FetchType.LAZY)
-    private Usuario usuario;
+    @OneToMany(mappedBy = "iddireccionEntrenador", fetch = FetchType.LAZY)
+    private List<Entrenador> entrenadorList;
 
     public Direccion() {
     }
@@ -83,8 +82,7 @@ public class Direccion implements Serializable {
     public Direccion(Integer idDireccion) {
         this.idDireccion = idDireccion;
     }
-    
-// <editor-fold defaultstate="collapsed" desc="Getter and Setters. Click on the + sign on the left to edit the code.">
+
     public Integer getIdDireccion() {
         return idDireccion;
     }
@@ -165,21 +163,13 @@ public class Direccion implements Serializable {
         this.provinciaDireccion = provinciaDireccion;
     }
 
-    public Entrenador getEntrenador() {
-        return entrenador;
+    public List<Entrenador> getEntrenadorList() {
+        return entrenadorList;
     }
 
-    public void setEntrenador(Entrenador entrenador) {
-        this.entrenador = entrenador;
+    public void setEntrenadorList(List<Entrenador> entrenadorList) {
+        this.entrenadorList = entrenadorList;
     }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }//</editor-fold>
 
     @Override
     public int hashCode() {
