@@ -5,9 +5,11 @@
  */
 package com.arelance.proyectoimd.controller;
 
+import com.arelance.proyectoimd.controller.cookiemanagement.CookieManagement;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +33,8 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        Cookie cookie = CookieManagement.destroyLoginCookie(new Cookie("loginCorrecto", ""));
+        response.addCookie(cookie);
         request.getSession().invalidate();
         response.sendRedirect("index.jsp");
     }

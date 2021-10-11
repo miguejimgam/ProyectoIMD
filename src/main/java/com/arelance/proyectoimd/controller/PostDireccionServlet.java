@@ -53,7 +53,7 @@ public class PostDireccionServlet extends HttpServlet {
         
         loggedUser.setDireccion(direccionRegistro);
         usuarioService.updateUsuario(loggedUser);
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/MainServlet").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

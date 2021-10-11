@@ -14,16 +14,15 @@
     </head>
     <body>
         <%
-            if (request.getSession(false) == null) {
-                out.write("<a href='login.jsp'><button>Login</button></a>");
-                out.write("<a href='forms/registro.jsp'><button>Registro</button></a>");
-                out.write("<a href='TestManyToMany'><button>Test</button></a>");
-            } else {
-                out.write("<a href='LogoutServlet'><button>Cerrar Sesión</button></a><br>");
-                out.write("<a href='forms/perfil.jsp'><button>Modificar Perfil</button></a>");
-            }
-        %>
+    if (request.getSession(false) == null) { %>        
+        <a href='login.jsp'><button>Login</button></a>
+        <a href='forms/registro.jsp'><button>Registro</button></a>
+        <a href='TestManyToMany'><button>Test</button></a>
+    <%} else { %>
+        <a href='LogoutServlet'><button>Cerrar Sesión</button></a><br>
+        <a href='forms/perfil.jsp'><button>Modificar Perfil</button></a>
+    <% }%>
         <br>
-         <%@include file="WEB-INF/jspf/listaActividades.jspf" %> 
+        <%@include file="WEB-INF/jspf/listaActividades.jspf" %> 
     </body>
 </html>

@@ -5,12 +5,9 @@
  */
 package com.arelance.proyectoimd.controller;
 
-import com.arelance.proyectoimd.controller.cookiemanagement.CookieManagement;
-import com.arelance.proyectoimd.domain.Usuario;
-import com.arelance.proyectoimd.domain.dto.LoginDTO;
-import com.arelance.proyectoimd.services.logindtoservice.LoginService;
-import com.arelance.proyectoimd.services.usuarioservices.UsuarioService;
+import com.arelance.proyectoimd.services.actividadservice.ActividadService;
 import java.io.IOException;
+import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,30 +20,30 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Miguel
  */
-@WebServlet(name = "PreLoginServlet", urlPatterns = {"/PreLoginServlet"})
-public class PreLoginServlet extends HttpServlet {
+@WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet"})
+public class PreInicioServlet extends HttpServlet {
 
     @Inject
-    LoginService loginService;
-    @Inject
-    UsuarioService usuarioService;
-    
+    private ActividadService actividadService;
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String usuario = request.getParameter("usuario");
-        String password = request.getParameter("password");
-        LoginDTO login = new LoginDTO(usuario, password);
-        if (loginService.login(login) == null) {
-            request.setAttribute("badLogin", true);
-            getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
-        } else {
-            Usuario loggedUser = new Usuario();
-            loggedUser.setNickUsuario(usuario);
-            loggedUser.setPasswordUsuario(password);
-            request.getSession().setAttribute("loggedUser", usuarioService.findUsuarioByNick(loggedUser));
-            response.addCookie(CookieManagement.createLoginCookie());
-            response.sendRedirect("MainServlet");
+        response.setContentType("text/html;charset=UTF-8");
+        Cookie[] lista = request.getCookies();
+        for (Cookie cookie : lista) {
+            if (cookie.getName().equals("loginCorrecto")) {
+                request.setAttribute("listaActividades", actividadService.getAllActividades());
+            }
         }
+        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

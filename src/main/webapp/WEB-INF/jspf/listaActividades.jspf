@@ -4,4 +4,8 @@
 <%
     if (request.getSession(false) != null) {
 %>
+<c:forEach var="actividad" items="${listaActividades}">
+    <hr>
+    <a href="detallesActividad.jsp?actividad=${actividad.nombreActividad}"><c:out value="Detalles de la actividad ${actividad.nombreActividad}"/></a>
+</c:forEach>
 <%}%>

@@ -64,7 +64,7 @@ public class Entrenador implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_entrenador")
     private Integer idEntrenador;
-    @OneToMany(mappedBy = "identrenador", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "entrenador", fetch = FetchType.LAZY)
     private List<ActividadDeporte> actividadDeporteList;
     @JoinColumn(name = "iddireccion_entrenador", referencedColumnName = "id_direccion")
     @ManyToOne(fetch = FetchType.LAZY)

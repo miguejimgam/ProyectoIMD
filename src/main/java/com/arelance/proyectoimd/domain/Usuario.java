@@ -8,6 +8,7 @@ package com.arelance.proyectoimd.domain;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -64,7 +65,7 @@ public class Usuario implements Serializable {
     @Column(name = "telefono_usuario")
     private String telefonoUsuario;
     @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Direccion direccion;
     @ManyToMany(mappedBy = "listaUsuarios")
     List<ActividadDeporte> listaActividades;
