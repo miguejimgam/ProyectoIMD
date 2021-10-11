@@ -40,12 +40,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Direccion.findByProvinciaDireccion", query = "SELECT d FROM Direccion d WHERE d.provinciaDireccion = :provinciaDireccion")})
 public class Direccion implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_direccion")
-    private Integer idDireccion;
     @Size(max = 45)
     @Column(name = "calle_direccion")
     private String calleDireccion;
@@ -73,6 +67,12 @@ public class Direccion implements Serializable {
     @Size(max = 45)
     @Column(name = "provincia_direccion")
     private String provinciaDireccion;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_direccion")
+    private Integer idDireccion;
     @OneToMany(mappedBy = "iddireccionEntrenador", fetch = FetchType.LAZY)
     private List<Entrenador> entrenadorList;
 
@@ -195,5 +195,5 @@ public class Direccion implements Serializable {
     public String toString() {
         return "com.arelance.proyectoimd.domain.Direccion[ idDireccion=" + idDireccion + " ]";
     }
-    
+
 }

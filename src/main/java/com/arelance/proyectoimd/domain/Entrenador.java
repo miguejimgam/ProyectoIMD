@@ -39,12 +39,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Entrenador.findByTelefonoEntrenador", query = "SELECT e FROM Entrenador e WHERE e.telefonoEntrenador = :telefonoEntrenador")})
 public class Entrenador implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_entrenador")
-    private Integer idEntrenador;
     @Size(max = 45)
     @Column(name = "nick_entrenador")
     private String nickEntrenador;
@@ -63,6 +57,13 @@ public class Entrenador implements Serializable {
     @Size(max = 45)
     @Column(name = "telefono_entrenador")
     private String telefonoEntrenador;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_entrenador")
+    private Integer idEntrenador;
     @OneToMany(mappedBy = "identrenador", fetch = FetchType.LAZY)
     private List<ActividadDeporte> actividadDeporteList;
     @JoinColumn(name = "iddireccion_entrenador", referencedColumnName = "id_direccion")
