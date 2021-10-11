@@ -33,8 +33,7 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Cookie cookie = CookieManagement.destroyLoginCookie(new Cookie("loginCorrecto", ""));
-        response.addCookie(cookie);
+        response.addCookie(CookieManagement.destroyLoginCookie(new Cookie("loginCorrecto", "")));
         request.getSession().invalidate();
         response.sendRedirect("index.jsp");
     }
