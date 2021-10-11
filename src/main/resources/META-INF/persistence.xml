@@ -6,9 +6,6 @@
     <class>com.arelance.proyectoimd.domain.Usuario</class>
     <class>com.arelance.proyectoimd.domain.Entrenador</class>
     <class>com.arelance.proyectoimd.domain.ActividadDeporte</class>
-    <class>com.arelance.proyectoimd.domain.Actividaddeporte</class>
-    <class>com.arelance.proyectoimd.domain.Direccion_1</class>
-    <class>com.arelance.proyectoimd.domain.Entrenador_1</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/imd</jta-data-source>
