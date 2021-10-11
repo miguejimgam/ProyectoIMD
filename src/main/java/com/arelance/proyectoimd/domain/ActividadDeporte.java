@@ -6,18 +6,12 @@
 package com.arelance.proyectoimd.domain;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -64,15 +58,6 @@ public class ActividadDeporte implements Serializable {
     @Size(max = 45)
     @Column(name = "horario_actividad")
     private String horarioActividad;
-    @JoinColumn(name = "identrenador", referencedColumnName = "id_entrenador")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Entrenador identrenador;
-    @ManyToMany
-    @JoinTable(
-            name = "curso_has_usuario",
-            joinColumns = @JoinColumn(name = "id_usuario"),
-            inverseJoinColumns = @JoinColumn(name = "id_actividad"))
-    List<Usuario> listaUsuarios;
 
     public ActividadDeporte() {
     }
@@ -137,23 +122,6 @@ public class ActividadDeporte implements Serializable {
         this.horarioActividad = horarioActividad;
     }
 
-    public Entrenador getIdentrenador() {
-        return identrenador;
-    }
-
-    public void setIdentrenador(Entrenador identrenador) {
-        this.identrenador = identrenador;
-    }
-
-    public List<Usuario> getListaUsuarios() {
-        return listaUsuarios;
-    }
-
-    public void setListaUsuarios(List<Usuario> listaUsuarios) {
-        this.listaUsuarios = listaUsuarios;
-    }
-    
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -178,5 +146,5 @@ public class ActividadDeporte implements Serializable {
     public String toString() {
         return "com.arelance.proyectoimd.domain.ActividadDeporte[ idActvidad=" + idActvidad + " ]";
     }
-
+    
 }
