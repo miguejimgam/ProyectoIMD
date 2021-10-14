@@ -22,5 +22,21 @@ public class ActividadDAOImpl implements ActividadDAO {
     public List<ActividadDeporte> getAllActividades() {
         return em.createNamedQuery("ActividadDeporte.findAll", ActividadDeporte.class).getResultList();
     }
+
+    @Override
+    public boolean addUsuarioToActividad(ActividadDeporte actividadDeporte) {
+        try {
+            em.merge(actividadDeporte);
+            return true;
+        } catch (Exception e) {
+            e.getMessage();
+            return false;
+        }
+    }
+
+    @Override
+    public ActividadDeporte getActividadById(ActividadDeporte actividadDeporte) {
+        return em.find(ActividadDeporte.class, actividadDeporte.getIdActvidad());
+    }
     
 }

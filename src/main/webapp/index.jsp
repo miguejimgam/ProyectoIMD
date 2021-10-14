@@ -11,17 +11,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Landing Page</title>
+        <%@include file="WEB-INF/jspf/bootstrap.jspf" %>
+        <%@include file="WEB-INF/jspf/bootstraptest.jspf" %>
+        <link rel="stylesheet" href="WEB-INF/css/csstest.css"
+        
     </head>
     <body>
         <%
     if (request.getSession(false) == null) { %>        
         <a href='login.jsp'><button>Login</button></a>
         <a href='forms/registro.jsp'><button>Registro</button></a>
-        <a href='TestManyToMany'><button>Test</button></a>
     <%} else { %>
         <a href='LogoutServlet'><button>Cerrar Sesión</button></a><br>
         <a href='forms/perfil.jsp'><button>Modificar Perfil</button></a>
     <% }%>
+        <a href='AddUsuarioToActividad'><button>Test</button></a>
         <br>
         <%@include file="WEB-INF/jspf/listaActividades.jspf" %> 
     </body>

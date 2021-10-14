@@ -21,5 +21,15 @@ public class ActividadServiceImpl implements ActividadService {
     public List<ActividadDeporte> getAllActividades() {
         return actividadDAO.getAllActividades();
     }
+
+    @Override
+    public boolean addUsuarioToActividad(ActividadDeporte actividadDeporte) {
+        return actividadDAO.addUsuarioToActividad(actividadDeporte);
+    }
+
+    @Override
+    public ActividadDeporte getActividadById(ActividadDeporte actividadDeporte) {
+        return actividadDAO.getActividadById(actividadDeporte);
+    }
     
 }

@@ -16,4 +16,6 @@ import javax.ejb.Local;
 @Local
 public interface ActividadService {
     public List<ActividadDeporte> getAllActividades();
+    public boolean addUsuarioToActividad(ActividadDeporte actividadDeporte);
+    public ActividadDeporte getActividadById(ActividadDeporte actividadDeporte);
 }

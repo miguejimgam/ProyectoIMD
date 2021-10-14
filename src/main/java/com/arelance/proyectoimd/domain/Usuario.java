@@ -6,16 +6,16 @@
 package com.arelance.proyectoimd.domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -41,6 +41,7 @@ import javax.validation.constraints.Size;
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -64,12 +65,14 @@ public class Usuario implements Serializable {
     @Size(max = 45)
     @Column(name = "telefono_usuario")
     private String telefonoUsuario;
+
     @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion")
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Direccion direccion;
+
     @ManyToMany(mappedBy = "listaUsuarios")
-    List<ActividadDeporte> listaActividades;
-    
+    Set<ActividadDeporte> listaActividades;
+
     public Usuario() {
     }
 
@@ -141,6 +144,14 @@ public class Usuario implements Serializable {
         this.direccion = direccion;
     }
 
+    public Set<ActividadDeporte> getListaActividades() {
+        return listaActividades;
+    }
+
+    public void setListaActividades(Set<ActividadDeporte> listaActividades) {
+        this.listaActividades = listaActividades;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -165,5 +176,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "com.arelance.proyectoimd.domain.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-    
+
 }

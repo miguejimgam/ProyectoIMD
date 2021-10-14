@@ -5,13 +5,14 @@
  */
 package com.arelance.proyectoimd.controller;
 
+import com.arelance.proyectoimd.domain.ActividadDeporte;
+import com.arelance.proyectoimd.domain.Usuario;
 import com.arelance.proyectoimd.services.actividadservice.ActividadService;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,12 +21,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Miguel
  */
-@WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet"})
-public class PreInicioServlet extends HttpServlet {
+@WebServlet(name = "AddUsuarioToActividad", urlPatterns = {"/AddUsuarioToActividad"})
+public class AddUsuarioToActividad extends HttpServlet {
 
     @Inject
-    private ActividadService actividadService;
-
+    ActividadService actividadService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,16 +37,19 @@ public class PreInicioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        Cookie[] lista = request.getCookies();
-        if (lista != null) {
-            for (Cookie cookie : lista) {
-                if (cookie.getName().equals("loginCorrecto")) {
-                    request.setAttribute("listaActividades", actividadService.getAllActividades());
-                }
-            }
+        ActividadDeporte actividad = new ActividadDeporte();
+        actividad.setIdActvidad(60);
+        ActividadDeporte actividadTest = actividadService.getActividadById(actividad);
+        Usuario usuario = (Usuario) request.getSession().getAttribute("loggedUser");
+        
+        actividadTest.getListaUsuarios().add(usuario);
+        
+        if(actividadService.addUsuarioToActividad(actividadTest)) {
+            System.out.println("");
+        } else {
+            System.out.println("");
         }
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
